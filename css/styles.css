@@ -6,10 +6,17 @@
 body{
     height: 100vh;
     background-image: linear-gradient(to right,rgba(0,0,0,.7),rgba(0,0,0,0.7)),
-    url('../photo-1507842217343-583bb7270b66.jpg');
+    url('../images/photo-1507842217343-583bb7270b66.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+.login-title{
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
 }
 .form,
 .error-message{
@@ -19,13 +26,17 @@ body{
     transform: translate(-50%,-50%);
 }
 .error-message{
+    width: 100%;
+    text-align: center;
+    visibility: hidden;
     opacity: 0;
     top: 70%;
-    transition: all .4s;
+    transition:opacity .2s;
     color: red;
 }
 .active{
     opacity: 1;
+    visibility: visible;
 }
 .email-input,
 .password-input{
@@ -45,4 +56,9 @@ body{
 .login{
     width: 80px;
     height: 30px;
+}
+@media only screen and (max-width:412px){
+    .error-message{
+        top: 80%;
+    }
 }
