@@ -5,8 +5,6 @@ let elError=document.querySelector('.error-message');
 
 elForm.addEventListener('submit',e=>{
     e.preventDefault();
-    let emailValue=elEmail.value;
-    let passwordValue=elPassword.value;
     data();
 })
 // eve.holt@reqres.in

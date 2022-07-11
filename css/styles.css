@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 body{
+    font-family: 'Montserrat', sans-serif;
     height: 100vh;
     background-image: linear-gradient(to right,rgba(0,0,0,.7),rgba(0,0,0,0.7)),
     url('../images/Login.png');
@@ -14,6 +15,21 @@ body{
 }
 a{
     text-decoration: none;
+}
+input{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    height:100%;
+    width:230px;
+    margin-left:19px;
+    outline: none;
+    border: none;
+    background: none;
+    transform: translateY(-5px);
+    color: #FFFFFF;
+    
 }
 
 .main-login{
@@ -32,13 +48,10 @@ a{
     width: 100%;
     text-align: center;
     visibility: hidden;
-    opacity: 0;
-    top: 70%;
-    transition:opacity .2s;
+    top:70%;
     color: red;
 }
 .active{
-    opacity: 1;
     visibility: visible;
 }
 .user-label,
@@ -58,20 +71,6 @@ a{
     margin-top:12px;
 }
 
-.email-input,
-.password-input{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 20px;
-    height:100%;
-    width:230px;
-    margin-left:19px;
-    outline: none;
-    background-color:none !important;
-    border: none;
-    transform: translateY(-5px);
-}
 .email-input::placeholder,
 .password-input::placeholder{
     color: #FFFFFF;
@@ -94,10 +93,11 @@ a{
     border-radius: 4px;
     padding:12px 0;
     color: #0D75FF;
+    cursor: pointer;
 }
-
-@media only screen and (max-width:412px){
-    .error-message{
-        top: 80%;
-    }
+.forgot-password{
+    width: 100%;
+    margin-top: 10px;
+    text-align:right;
+    color: #FFFFFF;
 }
