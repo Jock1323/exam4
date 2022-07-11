@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -6,24 +7,26 @@
 body{
     height: 100vh;
     background-image: linear-gradient(to right,rgba(0,0,0,.7),rgba(0,0,0,0.7)),
-    url('../images/photo-1507842217343-583bb7270b66.jpg');
+    url('../images/Login.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
-.login-title{
-    position: absolute;
-    top: 50px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
+a{
+    text-decoration: none;
 }
-.form,
-.error-message{
+
+.main-login{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+.login-logo{
+    margin-bottom: 50px;
 }
 .error-message{
     width: 100%;
@@ -38,25 +41,61 @@ body{
     opacity: 1;
     visibility: visible;
 }
-.email-input,
-.password-input{
+.user-label,
+.password-label{
+    padding-left: 12px;
     display: block;
     width: 300px;
-    height:50px;
+    height: 45px;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+}
+.user-label{
+    margin-bottom: 23px;
+}
+.user-img,
+.lock-img{
+    margin-top:12px;
+}
+
+.email-input,
+.password-input{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    height:100%;
+    width:230px;
+    margin-left:19px;
     outline: none;
+    background-color:none !important;
+    border: none;
+    transform: translateY(-5px);
 }
-.email-input{
-    margin-bottom: 20px;
+.email-input::placeholder,
+.password-input::placeholder{
+    color: #FFFFFF;
+    text-transform: uppercase;
 }
+
 .btn-box{
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .login{
-    width: 80px;
-    height: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    width:300px;
+    height:45px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding:12px 0;
+    color: #0D75FF;
 }
+
 @media only screen and (max-width:412px){
     .error-message{
         top: 80%;

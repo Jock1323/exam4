@@ -26,7 +26,7 @@ let data=()=>{
     .then(data=>{
         if(data.token){
             window.localStorage.setItem('token',data.token);
-            elError.classList.remove('active8')
+            elError.classList.remove('active')
            window.location.replace('home.html')
         }
         else{
