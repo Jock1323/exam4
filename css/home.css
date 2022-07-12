@@ -152,6 +152,8 @@ li{
     background-color: #fff;
 }
 .main-left__table-row{
+    display: flex;
+    justify-content: space-between;
     margin-top: 26px;
     padding: 15px 10px;
     background-color: #F8FAFD;
