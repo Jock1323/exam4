@@ -14,7 +14,6 @@ let elNextBtn=document.querySelector('.next')
 let elNumbers=document.querySelectorAll('.numbers .numbers__link');
 let elResultsNum=document.querySelector('.results__num');
 let elPagination=document.querySelector('.numbers');
-// let elPageBtnWrapper=document.querySelector('.pagination')
 let elErrorMessage=document.querySelector('.error');
 let orderName='relevance';
 let bookName='python'
@@ -23,7 +22,7 @@ let fullArr = [];
 let bookmarkArr=parsedData||[];
 let page=0;
 
-//renderCards
+
 let renderCards = (fullArr, htmlElement) => {
     let txt = "";
     fullArr.forEach(element => {
@@ -59,45 +58,44 @@ let renderCards = (fullArr, htmlElement) => {
     });
     htmlElement.innerHTML = txt;
 }
-// render close modal
+
 let closeModal = () => {
     elModal.classList.remove('more-info__modal--active');
     elOverlay.classList.remove('more-info__overlay--active')
 }
-//render open modal
+
 let openModal = () => {
     elModal.classList.add('more-info__modal--active');
     elOverlay.classList.add('more-info__overlay--active')
 }
-//render open Prev disabled btn
+
 let openPrevDisabledBtn=()=>{
     elPrevBtn.classList.add('prev--active');
     elPrevBtn.disabled=true;
 }
-// render close Prev disabled btn
+
 let closePrevDisabledBtn=()=>{
     elPrevBtn.classList.remove('prev--active')
     elPrevBtn.disabled=false;
 }
-//render close Next disabled btn
+
 let closeNextDisabledBtn=()=>{
     elNextBtn.classList.remove('prev--active');
     elNextBtn.disabled=false;
 }
 
-//render open Next disabled btn
+
 let openNextDisabledBtn=()=>{
     elNextBtn.classList.add('prev--active');
     elNextBtn.disabled=true;
 }
 
-//render close disabled  btn
+
 let closeDisabledBtn=()=>{
     closeNextDisabledBtn()
     closePrevDisabledBtn()
 }
 
-//render modal
 let renderMoreInfoModal = (item, htmlElement) => {
     htmlElement.innerHTML=""
 
@@ -181,7 +179,7 @@ let renderMoreInfoModal = (item, htmlElement) => {
     htmlElement.appendChild(moreInfoBtnWrapper)
     moreInfoBtnWrapper.appendChild(moreInfoBtn)
 }
-//render Bookmark
+
 let renderBookmark = (arr, htmlElement) => {
     let txt = '';
     arr.forEach(item => {
@@ -206,7 +204,7 @@ let renderBookmark = (arr, htmlElement) => {
     })
     htmlElement.innerHTML = txt;
 }
-//  render Pagination
+
 let res;
 let renderPage=(data)=>{
     res=0;
@@ -220,7 +218,7 @@ let renderPage=(data)=>{
     }
     elPagination.innerHTML=txt;
 }
-//renderError
+
 let renderError=()=>{
     elResultsNum.textContent=0;
     elErrorMessage.classList.add('error-active');
@@ -331,6 +329,7 @@ elNumbers.forEach(item=>{
         item.classList.add('active')
     })
 })
+
 const fullData = () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookName}&orderBy=${orderName}&startIndex=${page}`)
         .then(req => req.json())
