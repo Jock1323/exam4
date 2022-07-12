@@ -1,3 +1,4 @@
+'use strict'
 const API_KEY = 'AIzaSyD5sf1x0AMZG4UgGTCZ6XsKL_wRPwoNfm0'
 const token = window.localStorage.getItem('token');
 let elLogOutBtn = document.querySelector('.log-out');
