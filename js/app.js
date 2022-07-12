@@ -29,11 +29,11 @@ let renderCards = (fullArr, htmlElement) => {
     fullArr.forEach(element => {
         let item = `
     <li class="main-card__item">
-    <div class="card-header main-card__img">
+    <div class="main-card__img">
         <img src="${element.volumeInfo.imageLinks?.thumbnail}" width="200" height="200" alt="an image">
     </div>
     <div class="card-body">
-        <h4 class="card-title main-card__title">
+        <h4 class="main-card__title">
         ${element.volumeInfo?.title}
         </h4>
         <p class="main-card__text">
@@ -187,7 +187,7 @@ let renderBookmark = (arr, htmlElement) => {
     arr.forEach(item => {
         let element = `
         <div class="main-left__table-row">
-                        <div class="main-left__table-data  d-flex justify-content-between align-items-center">
+                        <div class="main-left__table-data">
                             <h4 class="book-title">
                                 ${item.volumeInfo?.title}
                             </h4>
