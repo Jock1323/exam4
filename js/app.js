@@ -14,31 +14,15 @@ let elNextBtn=document.querySelector('.next')
 let elNumbers=document.querySelectorAll('.numbers .numbers__link');
 let elResultsNum=document.querySelector('.results__num');
 let elPagination=document.querySelector('.numbers');
-let elPageBtnWrapper=document.querySelector('.pagination')
+// let elPageBtnWrapper=document.querySelector('.pagination')
 let elErrorMessage=document.querySelector('.error');
 let orderName='relevance';
 let bookName='python'
 let parsedData=JSON.parse(window.localStorage.getItem('bookmarks'));
 let fullArr = [];
-let bookmarkArr;
+let bookmarkArr=parsedData||[];
 let page=0;
-if(parsedData){
-    bookmarkArr=parsedData;
-}
-else{
-    bookmarkArr=[];
-    console.log(bookmarkArr);
-}
-elResultsNum.textContent=fullArr.totalItems;
 
-
-//reset Links
-
-function resetLinks(){
-    elNumbers.forEach(item=>{
-        item.classList.remove('active')
-    })
-}
 //renderCards
 let renderCards = (fullArr, htmlElement) => {
     let txt = "";
@@ -75,12 +59,44 @@ let renderCards = (fullArr, htmlElement) => {
     });
     htmlElement.innerHTML = txt;
 }
-
 // render close modal
 let closeModal = () => {
     elModal.classList.remove('more-info__modal--active');
     elOverlay.classList.remove('more-info__overlay--active')
 }
+//render open modal
+let openModal = () => {
+    elModal.classList.add('more-info__modal--active');
+    elOverlay.classList.add('more-info__overlay--active')
+}
+//render open Prev disabled btn
+let openPrevDisabledBtn=()=>{
+    elPrevBtn.classList.add('prev--active');
+    elPrevBtn.disabled=true;
+}
+// render close Prev disabled btn
+let closePrevDisabledBtn=()=>{
+    elPrevBtn.classList.remove('prev--active')
+    elPrevBtn.disabled=false;
+}
+//render close Next disabled btn
+let closeNextDisabledBtn=()=>{
+    elNextBtn.classList.remove('prev--active');
+    elNextBtn.disabled=false;
+}
+
+//render open Next disabled btn
+let openNextDisabledBtn=()=>{
+    elNextBtn.classList.add('prev--active');
+    elNextBtn.disabled=true;
+}
+
+//render close disabled  btn
+let closeDisabledBtn=()=>{
+    closeNextDisabledBtn()
+    closePrevDisabledBtn()
+}
+
 //render modal
 let renderMoreInfoModal = (item, htmlElement) => {
     htmlElement.innerHTML=""
@@ -152,7 +168,6 @@ let renderMoreInfoModal = (item, htmlElement) => {
     moreInfoPageWrapper.textContent=item.volumeInfo?.pageCount;
     moreInfoPage.appendChild(moreInfoPageWrapper)
 
-
     htmlElement.appendChild(moreInfoFlex);
     moreInfoFlex.append(moreInfoTitle)
     moreInfoFlex.append(moreInfoXmark);
@@ -165,12 +180,10 @@ let renderMoreInfoModal = (item, htmlElement) => {
     htmlElement.appendChild(moreInfoPage);
     htmlElement.appendChild(moreInfoBtnWrapper)
     moreInfoBtnWrapper.appendChild(moreInfoBtn)
-
 }
 //render Bookmark
 let renderBookmark = (arr, htmlElement) => {
     let txt = '';
-    
     arr.forEach(item => {
         let element = `
         <div class="main-left__table-row">
@@ -193,40 +206,31 @@ let renderBookmark = (arr, htmlElement) => {
     })
     htmlElement.innerHTML = txt;
 }
-
 //  render Pagination
-
 let res;
 let renderPage=(data)=>{
     res=0;
     let txt='';
-    if(Number(data)%10===0){
-        res=Math.floor(data/10);
-    }
-    else{
-        res=Math.floor(data/10)+1;
-    }
-    for(let item=0;item<=res;item++){
+    res=(Number(data)%10===0)?Math.floor(data/10):Math.floor(data/10)+1
+    for(let item=0;item<res;item++){
         let page=`
         <li class="number"><a href="#" class="numbers__link" data-pageid=${item}>${item+1}</a></li>
         `
         txt+=page;
     }
     elPagination.innerHTML=txt;
-   
 }
 //renderError
-
 let renderError=()=>{
+    elResultsNum.textContent=0;
     elErrorMessage.classList.add('error-active');
     elList.innerHTML="";
     elPagination.innerHTML="";
-    elPrevBtn.classList.add('prev--active');
-    elPrevBtn.disabled=true;
-    elNextBtn.classList.add('prev--active');
-    elNextBtn.disabled=true;
+    openNextDisabledBtn()
+    openPrevDisabledBtn()
     page=0;
 }
+elResultsNum.textContent=fullArr.totalItems;
 
 if (!token) {
     window.location.replace('index.html');
@@ -241,8 +245,10 @@ elForm.addEventListener('submit', (e) => {
     elErrorMessage.classList.remove('error-active');
     bookName = elSearchInput.value;
     orderName='relevance'
-    fullData();
     elSearchInput.value = null;
+    page=0;
+    closeNextDisabledBtn();
+    fullData();
 })
 elOrderByNew.addEventListener('click',()=>{
     orderName='newest';
@@ -253,8 +259,7 @@ elList.addEventListener('click', e => {
     if (e.target.matches('.main-card__info')) {
         let moreInfoBtnId = e.target.dataset.more;
         let findElement = fullArr.find(item => item.id === moreInfoBtnId);
-        elModal.classList.add('more-info__modal--active');
-        elOverlay.classList.add('more-info__overlay--active')
+        openModal();
         renderMoreInfoModal(findElement, elModal)
     } else if (e.target.matches('.main-card__bookmark')) {
         let bookmarkId = e.target.dataset.bookmark;
@@ -285,8 +290,7 @@ elModal.addEventListener('click',(e)=>{
 elOverlay.addEventListener('click', closeModal)
 document.addEventListener('keydown', (e) => {
     if (e.keyCode === 27) {
-        elModal.classList.remove('more-info__modal--active');
-        elOverlay.classList.remove('more-info__overlay--active')
+        closeModal();
     }
 })
 elPagination.addEventListener('click',e=>{
@@ -294,56 +298,45 @@ elPagination.addEventListener('click',e=>{
         let pageBtnId=e.target.dataset.pageid*1;
         page=pageBtnId*10;
         if(page>0){
-            elNextBtn.classList.remove('prev--active');
-            elNextBtn.disabled=false;
-            elPrevBtn.classList.remove('prev--active');
-            elPrevBtn.disabled=false;
+            closeDisabledBtn();
         }
         else{
-            elPrevBtn.classList.add('prev--active');
-            elPrevBtn.disabled=true;
+            openPrevDisabledBtn();
         }
         fullData();
     }
 })
 elPrevBtn.addEventListener('click',(e)=>{
-    elNextBtn.classList.remove('prev--active');
-    elNextBtn.disabled=false;
-    if(page>10){
-        page-=10;
-        fullData()
-    }
-    else{
-        page=0;
-        elPrevBtn.classList.add('prev--active')
-        elPrevBtn.disabled=true;
-        fullData()
-    }
+    closeNextDisabledBtn()
+    page>10?
+    (page-=10,fullData())
+    :( 
+    page=0,
+    openPrevDisabledBtn(),
+    fullData()
+    )
 })
 elNextBtn.addEventListener('click',()=>{
-    elPrevBtn.classList.remove('prev--active')
-    elPrevBtn.disabled=false;
+    closePrevDisabledBtn();
     page+=10;
     if(page===res*10){
-        elNextBtn.classList.add('prev--active');
-        elNextBtn.disabled=true;
+        openNextDisabledBtn();
         page=res;
     }
     fullData()
 })
-// elNumbers.forEach(item=>{
-//     item.addEventListener('click',()=>{
-//         resetLinks();
-//         item.classList.add('active')
-//     })
-// })
+elNumbers.forEach(item=>{
+    item.addEventListener('click',()=>{
+        resetLinks();
+        item.classList.add('active')
+    })
+})
 const fullData = () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookName}&orderBy=${orderName}&startIndex=${page}`)
         .then(req => req.json())
         .then(data => {
             fullArr = data.items;
             elResultsNum.textContent=data.totalItems
-            console.log(data);
             renderPage(data.totalItems);
             renderCards(data.items, elList)
         })
