@@ -3,7 +3,6 @@ const token = window.localStorage.getItem('token');
 let elLogOutBtn = document.querySelector('.log-out');
 let elForm = document.querySelector('.form-search');
 let elSearchInput = document.querySelector('.search-input');
-let elSearchBtn = document.querySelector('.search-btn');
 let elOrderByNew = document.querySelector('.results__order');
 let elList = document.querySelector('.main-card');
 let elModal = document.querySelector('.more-info__modal');
