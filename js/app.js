@@ -22,7 +22,6 @@ let fullArr = [];
 let bookmarkArr=parsedData||[];
 let page=0;
 
-
 let renderCards = (fullArr, htmlElement) => {
     let txt = "";
     fullArr.forEach(element => {
